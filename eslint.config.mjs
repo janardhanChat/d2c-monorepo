@@ -81,6 +81,10 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    // No `// eslint-disable` escape hatches (AGENTS.md §3): inline config is ignored and reported.
+    linterOptions: { noInlineConfig: true, reportUnusedDisableDirectives: "error" },
+  },
+  {
     files: ["**/*.{ts,tsx,js,mjs,cjs}"],
     plugins: { "@nx": nx },
     languageOptions: { globals: { ...globals.node } },

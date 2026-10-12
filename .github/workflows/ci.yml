@@ -39,6 +39,12 @@ jobs:
       - name: Format
         run: pnpm format:check
 
+      - name: Agent guard policy tests
+        run: pnpm test:agents
+
+      - name: Existing migrations are unchanged
+        run: pnpm check:migrations
+
       - name: Lint, typecheck, test, build (affected only)
         run: pnpm exec nx affected -t lint typecheck test build --parallel=3
 

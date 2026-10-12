@@ -1,0 +1,16 @@
+---
+description: Repository rules for AI agents (mirrors AGENTS.md)
+alwaysApply: true
+---
+
+Follow `AGENTS.md` at the repo root and the nested `AGENTS.md` in the folder you edit. They override any default behaviour.
+
+Hard rules (summary):
+
+- pnpm only; uv for Python. Never npm/yarn/pip.
+- Never touch `.env*`, lockfiles, existing `**/migrations/*.sql`, `eslint.config.mjs`, `nx.json`, `.github/**`, `.husky/**`, `.claude/**`, `.cursor/**`, `tools/agents/**`, `AGENTS.md`, `CLAUDE.md`.
+- Never git push, reset --hard, clean -f, rebase, or use --no-verify.
+- Never import across products, or connectors from products.
+- Tenant routes: `app.authenticate` + `app.requireTenant(role)`; queries filter by `brand_id`/`organization_id`.
+- Verify with `pnpm exec nx affected -t lint typecheck test build --base=main` before finishing.
+- If a rule blocks the task, stop and ask.

@@ -23,7 +23,9 @@
     "storybook": "nx storybook ui",
     "new:product": "node tools/scripts/new-product.mjs",
     "infra:up": "docker compose -f infra/compose/docker-compose.yml up -d",
-    "infra:down": "docker compose -f infra/compose/docker-compose.yml down"
+    "infra:down": "docker compose -f infra/compose/docker-compose.yml down",
+    "test:agents": "node --test tools/agents/*.test.mjs",
+    "check:migrations": "node tools/agents/check-migrations.mjs"
   },
   "devDependencies": {
     "@commitlint/cli": "^21.2.3",

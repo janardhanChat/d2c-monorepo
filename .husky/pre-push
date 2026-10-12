@@ -3,3 +3,4 @@ BASE=$(git merge-base HEAD origin/main 2>/dev/null || git rev-parse HEAD~1 2>/de
 if [ -n "$BASE" ]; then
   pnpm exec nx affected -t lint typecheck test --base="$BASE" --head=HEAD
 fi
+node tools/agents/check-migrations.mjs

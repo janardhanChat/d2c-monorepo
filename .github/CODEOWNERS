@@ -6,3 +6,16 @@
 /products/social/       @your-org/social
 /connectors/            @your-org/platform
 /infra/                 @your-org/devops
+
+# Guardrails and agent rules: platform leads must approve every change
+/AGENTS.md                  @your-org/platform-leads
+**/AGENTS.md                @your-org/platform-leads
+/CLAUDE.md                  @your-org/platform-leads
+/.claude/                   @your-org/platform-leads
+/.cursor/                   @your-org/platform-leads
+/tools/agents/              @your-org/platform-leads
+/eslint.config.mjs          @your-org/platform-leads
+/nx.json                    @your-org/platform-leads
+/.husky/                    @your-org/platform-leads
+/.github/                   @your-org/platform-leads
+**/migrations/              @your-org/platform-leads
