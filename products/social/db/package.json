@@ -1,0 +1,12 @@
+{
+  "name": "@ap/social-db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "SQL migrations for the \"social\" Postgres schema (owned by social-api only)",
+  "nx": {
+    "tags": [
+      "scope:social",
+      "type:data"
+    ]
+  }
+}

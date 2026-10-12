@@ -1,0 +1,12 @@
+{
+  "name": "@ap/crm-db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "SQL migrations for the \"crm\" schema",
+  "nx": {
+    "tags": [
+      "scope:crm",
+      "type:data"
+    ]
+  }
+}

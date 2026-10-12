@@ -1,0 +1,1 @@
+export { crmManifest } from "./manifest";

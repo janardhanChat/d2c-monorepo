@@ -1,0 +1,24 @@
+{
+  "name": "@ap/product-kit",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Product manifest contract: how a product plugs into the shell (nav, plans, automation triggers/actions)",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:shared",
+      "type:util"
+    ]
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*"
+  }
+}

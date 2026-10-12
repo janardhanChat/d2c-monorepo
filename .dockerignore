@@ -1,0 +1,11 @@
+**/node_modules
+**/dist
+**/.next
+**/.venv
+**/storybook-static
+**/coverage
+.nx
+.git
+**/.env
+**/.env.*
+!**/.env.example

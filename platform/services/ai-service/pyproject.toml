@@ -1,0 +1,38 @@
+[project]
+name = "ai-service"
+version = "0.1.0"
+description = "AI engine: captions, 30-day content plans, embeddings / brand knowledge base"
+requires-python = ">=3.12"
+dependencies = [
+  "fastapi>=0.115",
+  "uvicorn[standard]>=0.32",
+  "pydantic-settings>=2.6",
+  "pyjwt>=2.10",
+]
+
+[dependency-groups]
+dev = [
+  "pytest>=8.3",
+  "httpx>=0.28",
+  "ruff>=0.8",
+  "mypy>=1.13",
+]
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "N", "S", "ASYNC", "RUF"]
+ignore = []
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["S101", "S105"] # asserts and dummy secrets are fine in tests
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["app"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

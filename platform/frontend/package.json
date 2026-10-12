@@ -1,0 +1,34 @@
+{
+  "name": "@ap/platform-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Platform screens shared by every product: app shell, org/brand switcher, automations, settings",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:platform",
+      "type:feature"
+    ]
+  },
+  "dependencies": {
+    "@ap/product-kit": "workspace:*",
+    "@ap/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "@storybook/react-vite": "^10.6.1",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

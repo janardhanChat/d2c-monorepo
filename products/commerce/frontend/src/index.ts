@@ -1,0 +1,1 @@
+export { commerceManifest } from "./manifest";

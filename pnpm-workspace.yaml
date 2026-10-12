@@ -1,0 +1,20 @@
+packages:
+  - "apps/*"
+  - "packages/*"
+  - "platform/frontend"
+  - "platform/services/*"
+  - "!platform/services/ai-service" # Python service: managed by uv, wired into Nx via project.json
+  - "products/*/frontend"
+  - "products/*/api"
+  - "products/*/domain"
+  - "products/*/db"
+  - "connectors/*"
+
+# Build scripts we allow to run on install
+onlyBuiltDependencies:
+  - "@swc/core"
+  - esbuild
+  - nx
+  - sharp
+  - "@tailwindcss/oxide"
+  - unrs-resolver

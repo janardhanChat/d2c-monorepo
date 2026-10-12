@@ -1,0 +1,51 @@
+{
+  "name": "automation-platform",
+  "private": true,
+  "description": "D2C Business OS: multi-tenant automation platform for D2C brands and SMBs",
+  "packageManager": "pnpm@10.28.0",
+  "engines": {
+    "node": ">=22.12.0",
+    "pnpm": ">=10"
+  },
+  "scripts": {
+    "prepare": "husky",
+    "dev": "nx run-many -t dev --parallel=10",
+    "dev:web": "nx dev web",
+    "dev:core": "nx dev core-api",
+    "build": "nx run-many -t build",
+    "lint": "nx run-many -t lint",
+    "typecheck": "nx run-many -t typecheck",
+    "test": "nx run-many -t test",
+    "affected": "nx affected -t lint typecheck test build",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "graph": "nx graph",
+    "storybook": "nx storybook ui",
+    "new:product": "node tools/scripts/new-product.mjs",
+    "infra:up": "docker compose -f infra/compose/docker-compose.yml up -d",
+    "infra:down": "docker compose -f infra/compose/docker-compose.yml down"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^21.2.3",
+    "@commitlint/config-conventional": "^21.2.3",
+    "@eslint/js": "^9.39.5",
+    "@next/eslint-plugin-next": "^16.4.0",
+    "@nx/eslint-plugin": "^23.3.0",
+    "@nx/js": "^23.3.0",
+    "@types/node": "^22.20.5",
+    "eslint": "^9.39.5",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-react-hooks": "^7.1.1",
+    "globals": "^17.13.0",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.4.0",
+    "nx": "^23.3.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
+    "tsup": "^8.5.1",
+    "tsx": "^4.23.15",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.71.1",
+    "vitest": "^5.0.3"
+  }
+}

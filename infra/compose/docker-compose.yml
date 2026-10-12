@@ -1,0 +1,83 @@
+# Our application stack. Supabase and Postiz run from their own upstream compose files
+# (infra/supabase, infra/postiz) and join the shared "ap-net" network.
+#
+#   docker network create ap-net        # once
+#   pnpm infra:up
+#
+name: automation-platform
+
+x-node-service: &node-service
+  build:
+    context: ../..
+    dockerfile: infra/docker/node-service.Dockerfile
+  restart: unless-stopped
+  env_file: ../../.env
+  networks: [ap-net]
+
+services:
+  gateway:
+    image: traefik:v3.5
+    command:
+      - --providers.file.filename=/etc/traefik/dynamic.yml
+      - --entrypoints.web.address=:8080
+      - --ping=true
+    ports: ["8080:8080"]
+    volumes:
+      - ../gateway/dynamic.yml:/etc/traefik/dynamic.yml:ro
+    networks: [ap-net]
+
+  web:
+    build:
+      context: ../..
+      dockerfile: infra/docker/web.Dockerfile
+      args:
+        NEXT_PUBLIC_API_URL: http://localhost:8080/api
+    restart: unless-stopped
+    env_file: ../../.env
+    networks: [ap-net]
+
+  core-api:
+    <<: *node-service
+    build:
+      context: ../..
+      dockerfile: infra/docker/node-service.Dockerfile
+      args: { PACKAGE: "@ap/core-api" }
+    environment: { PORT: 4000 }
+
+  integrations-api:
+    <<: *node-service
+    build:
+      context: ../..
+      dockerfile: infra/docker/node-service.Dockerfile
+      args: { PACKAGE: "@ap/integrations-api" }
+    environment: { PORT: 4010, CORE_API_URL: http://core-api:4000 }
+
+  social-api:
+    <<: *node-service
+    build:
+      context: ../..
+      dockerfile: infra/docker/node-service.Dockerfile
+      args: { PACKAGE: "@ap/social-api" }
+    environment:
+      PORT: 4100
+      CORE_API_URL: http://core-api:4000
+      INTEGRATIONS_API_URL: http://integrations-api:4010
+
+  ai-service:
+    build: ../../platform/services/ai-service
+    restart: unless-stopped
+    env_file: ../../.env
+    networks: [ap-net]
+
+  redis:
+    image: redis:7.4-alpine
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes: [redis-data:/data]
+    networks: [ap-net]
+
+volumes:
+  redis-data:
+
+networks:
+  ap-net:
+    external: true

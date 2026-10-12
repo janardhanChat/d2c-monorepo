@@ -1,0 +1,27 @@
+{
+  "name": "@ap/social-domain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Social product domain: post lifecycle, schemas, festival calendar. Framework-free, shared by social-api and social-frontend.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "nx": {
+    "tags": [
+      "scope:social",
+      "type:domain"
+    ]
+  },
+  "dependencies": {
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*"
+  }
+}

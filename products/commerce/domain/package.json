@@ -1,0 +1,24 @@
+{
+  "name": "@ap/commerce-domain",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Commerce domain model (framework-free)",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*"
+  },
+  "nx": {
+    "tags": [
+      "scope:commerce",
+      "type:domain"
+    ]
+  }
+}

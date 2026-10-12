@@ -1,0 +1,5 @@
+# Only check what this branch changed vs main (falls back to the previous commit).
+BASE=$(git merge-base HEAD origin/main 2>/dev/null || git rev-parse HEAD~1 2>/dev/null || echo "")
+if [ -n "$BASE" ]; then
+  pnpm exec nx affected -t lint typecheck test --base="$BASE" --head=HEAD
+fi

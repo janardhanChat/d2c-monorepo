@@ -1,0 +1,12 @@
+{
+  "name": "@ap/fulfillment-db",
+  "version": "0.0.0",
+  "private": true,
+  "description": "SQL migrations for the \"fulfillment\" schema",
+  "nx": {
+    "tags": [
+      "scope:fulfillment",
+      "type:data"
+    ]
+  }
+}

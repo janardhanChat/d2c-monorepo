@@ -1,0 +1,104 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NX_NO_CLOUD: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          enable-cache: true
+
+      - run: pnpm install --frozen-lockfile
+      - run: uv sync --directory platform/services/ai-service
+
+      # Sets NX_BASE / NX_HEAD so `affected` compares against the last green main
+      - uses: nrwl/nx-set-shas@v4
+
+      - name: Format
+        run: pnpm format:check
+
+      - name: Lint, typecheck, test, build (affected only)
+        run: pnpm exec nx affected -t lint typecheck test build --parallel=3
+
+  docker:
+    # Build images for services changed in this push to main
+    if: github.ref == 'refs/heads/main'
+    needs: check
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - {
+              project: "@ap/core-api",
+              dockerfile: infra/docker/node-service.Dockerfile,
+              context: ".",
+              args: "PACKAGE=@ap/core-api",
+            }
+          - {
+              project: "@ap/integrations-api",
+              dockerfile: infra/docker/node-service.Dockerfile,
+              context: ".",
+              args: "PACKAGE=@ap/integrations-api",
+            }
+          - {
+              project: "@ap/social-api",
+              dockerfile: infra/docker/node-service.Dockerfile,
+              context: ".",
+              args: "PACKAGE=@ap/social-api",
+            }
+          - { project: "@ap/web", dockerfile: infra/docker/web.Dockerfile, context: ".", args: "" }
+          - {
+              project: "ai-service",
+              dockerfile: platform/services/ai-service/Dockerfile,
+              context: platform/services/ai-service,
+              args: "",
+            }
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - uses: nrwl/nx-set-shas@v4
+      - id: affected
+        run: |
+          if pnpm exec nx show projects --affected | grep -qx "${{ matrix.project }}"; then
+            echo "build=true" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: docker/setup-buildx-action@v3
+        if: steps.affected.outputs.build == 'true'
+      - uses: docker/build-push-action@v6
+        if: steps.affected.outputs.build == 'true'
+        with:
+          context: ${{ matrix.context }}
+          file: ${{ matrix.dockerfile }}
+          build-args: ${{ matrix.args }}
+          push: false # TODO: log in to your registry and set push: true + tags
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

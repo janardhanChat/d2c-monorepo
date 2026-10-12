@@ -1,0 +1,31 @@
+{
+  "name": "@ap/core-api",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Platform core: organizations, brands, members, roles, subscriptions, feature-center",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch --env-file-if-exists=.env src/main.ts",
+    "build": "tsup",
+    "start": "node dist/main.js",
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run"
+  },
+  "nx": {
+    "tags": [
+      "scope:platform",
+      "type:service"
+    ]
+  },
+  "dependencies": {
+    "@ap/service-kit": "workspace:*",
+    "@ap/tenant": "workspace:*",
+    "postgres": "^3.4.9",
+    "zod": "^4.6.6"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "jose": "^6.2.12"
+  }
+}

@@ -1,0 +1,8 @@
+# Replace the teams with your GitHub handles/teams.
+*                       @your-org/platform
+/apps/web/              @your-org/frontend
+/packages/ui/           @your-org/frontend
+/platform/              @your-org/platform
+/products/social/       @your-org/social
+/connectors/            @your-org/platform
+/infra/                 @your-org/devops

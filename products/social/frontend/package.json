@@ -1,0 +1,35 @@
+{
+  "name": "@ap/social-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Social product UI (calendar, composer, approvals) + its product manifest. Mounted by apps/web.",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:social",
+      "type:feature"
+    ]
+  },
+  "dependencies": {
+    "@ap/product-kit": "workspace:*",
+    "@ap/social-domain": "workspace:*",
+    "@ap/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "@storybook/react-vite": "^10.6.1",
+    "@types/react": "^19.3.0",
+    "react": "^19.3.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  }
+}

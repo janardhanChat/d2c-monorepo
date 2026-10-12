@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "../src/styles.css";
+
+@source "../src";
+@source "../../../platform/frontend/src";
+@source "../../../products/*/frontend/src/**/*.{ts,tsx}";
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}

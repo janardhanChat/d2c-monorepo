@@ -1,0 +1,48 @@
+{
+  "name": "@ap/ui",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Design system: Tailwind v4 tokens + React components, documented in Storybook",
+  "type": "module",
+  "sideEffects": [
+    "**/*.css"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./styles.css": "./src/styles.css"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests",
+    "storybook": "storybook dev -p 6006 --no-open",
+    "build-storybook": "storybook build --quiet"
+  },
+  "nx": {
+    "tags": [
+      "scope:shared",
+      "type:ui"
+    ]
+  },
+  "dependencies": {
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.7.0"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "@storybook/react-vite": "^10.6.1",
+    "@tailwindcss/vite": "^4.3.3",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "storybook": "^10.6.1",
+    "tailwindcss": "^4.3.3",
+    "vite": "^8.3.4"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0"
+  }
+}

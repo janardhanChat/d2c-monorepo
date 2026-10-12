@@ -1,0 +1,33 @@
+{
+  "name": "@ap/commerce-frontend",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Commerce product UI + manifest",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "dependencies": {
+    "@ap/product-kit": "workspace:*",
+    "@ap/ui": "workspace:*"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "@types/react": "^19.0.0",
+    "react": "^19.0.0"
+  },
+  "peerDependencies": {
+    "react": "^19.0.0"
+  },
+  "nx": {
+    "tags": [
+      "scope:commerce",
+      "type:feature"
+    ]
+  }
+}

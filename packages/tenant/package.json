@@ -1,0 +1,30 @@
+{
+  "name": "@ap/tenant",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Organization -> Brand tenancy: context types, header parsing and Fastify guard",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:shared",
+      "type:util"
+    ]
+  },
+  "dependencies": {
+    "fastify-plugin": "^6.0.1",
+    "zod": "^4.6.6",
+    "@ap/auth": "workspace:*"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "fastify": "^5.12.5"
+  }
+}

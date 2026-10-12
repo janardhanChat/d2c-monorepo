@@ -1,0 +1,42 @@
+{
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "name": "ai-service",
+  "projectType": "application",
+  "sourceRoot": "platform/services/ai-service/app",
+  "tags": ["scope:platform", "type:service", "lang:python"],
+  "targets": {
+    "install": {
+      "command": "uv sync",
+      "options": { "cwd": "{projectRoot}" },
+      "inputs": ["{projectRoot}/pyproject.toml", "{projectRoot}/uv.lock"],
+      "cache": false
+    },
+    "dev": {
+      "command": "uv run uvicorn app.main:app --reload --port 8000",
+      "options": { "cwd": "{projectRoot}" },
+      "continuous": true
+    },
+    "lint": {
+      "command": "uv run ruff check . && uv run ruff format --check .",
+      "options": { "cwd": "{projectRoot}" },
+      "inputs": ["{projectRoot}/**/*.py", "{projectRoot}/pyproject.toml"],
+      "cache": true
+    },
+    "typecheck": {
+      "command": "uv run mypy",
+      "options": { "cwd": "{projectRoot}" },
+      "inputs": ["{projectRoot}/**/*.py", "{projectRoot}/pyproject.toml"],
+      "cache": true
+    },
+    "test": {
+      "command": "uv run pytest -q",
+      "options": { "cwd": "{projectRoot}" },
+      "inputs": ["{projectRoot}/**/*.py", "{projectRoot}/pyproject.toml"],
+      "cache": true
+    },
+    "docker-build": {
+      "command": "docker build -t automation-platform/ai-service:latest .",
+      "options": { "cwd": "{projectRoot}" }
+    }
+  }
+}

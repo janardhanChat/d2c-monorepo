@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@import "@ap/ui/styles.css";
+
+/* Let Tailwind see classes used inside workspace packages */
+@source "../../../../packages/ui/src";
+@source "../../../../platform/frontend/src";
+@source "../../../../products/*/frontend/src/**/*.{ts,tsx}";
+
+body {
+  background: var(--color-bg);
+  color: var(--color-fg);
+  font-family: var(--font-sans);
+}

@@ -1,0 +1,4 @@
+{
+  "extends": "@ap/config/tsconfig/node.json",
+  "include": ["src", "tests", "tsup.config.ts"]
+}

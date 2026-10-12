@@ -1,0 +1,21 @@
+# Our overrides on top of the upstream Postiz compose (no changes to Postiz itself).
+services:
+  postiz:
+    environment:
+      DISABLE_REGISTRATION: "true"
+      STORAGE_PROVIDER: "cloudflare" # set CLOUDFLARE_* vars in upstream/.env
+      API_LIMIT: "300"
+    networks:
+      - postiz-network
+      - temporal-network
+      - ap-net
+
+  # Monitoring UIs off by default in production; start them when debugging.
+  temporal-ui:
+    profiles: [debug]
+  temporal-admin-tools:
+    profiles: [debug]
+
+networks:
+  ap-net:
+    external: true

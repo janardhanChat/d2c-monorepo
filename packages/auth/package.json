@@ -1,0 +1,29 @@
+{
+  "name": "@ap/auth",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Verify Supabase (GoTrue) JWTs and expose request.user to Fastify services",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:shared",
+      "type:util"
+    ]
+  },
+  "dependencies": {
+    "fastify-plugin": "^6.0.1",
+    "jose": "^6.2.12"
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*",
+    "fastify": "^5.12.5"
+  }
+}

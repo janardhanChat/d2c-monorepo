@@ -1,0 +1,24 @@
+{
+  "name": "@ap/connector-postiz",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Typed client for the Postiz Public API (self-hosted, unmodified). Used only by integrations-api.",
+  "type": "module",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run --passWithNoTests"
+  },
+  "nx": {
+    "tags": [
+      "scope:connector",
+      "type:connector"
+    ]
+  },
+  "devDependencies": {
+    "@ap/config": "workspace:*"
+  }
+}

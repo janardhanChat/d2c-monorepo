@@ -1,0 +1,34 @@
+# deps
+node_modules/
+.pnpm-store/
+.venv/
+__pycache__/
+*.pyc
+
+# build
+dist/
+.next/
+out/
+storybook-static/
+coverage/
+*.tsbuildinfo
+.ruff_cache/
+.pytest_cache/
+
+# nx
+.nx/cache
+.nx/workspace-data
+
+# env
+.env
+.env.*
+!.env.example
+
+# misc
+.DS_Store
+*.log
+.idea/
+
+# upstream infra fetched by setup scripts
+infra/supabase/upstream/
+infra/postiz/upstream/
