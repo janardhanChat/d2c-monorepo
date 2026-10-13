@@ -97,7 +97,7 @@ jobs:
           if pnpm exec nx show projects --affected | grep -qx "${{ matrix.project }}"; then
             echo "build=true" >> "$GITHUB_OUTPUT"
           fi
-      - uses: docker/setup-buildx-action@v3
+      - uses: docker/setup-buildx-action@v4
         if: steps.affected.outputs.build == 'true'
       - uses: docker/build-push-action@v6
         if: steps.affected.outputs.build == 'true'
