@@ -16,9 +16,32 @@ export const ModuleCard: Story = {
     <Card className="w-72">
       <div className="flex items-center justify-between">
         <CardTitle>Social</CardTitle>
-        <Badge tone="success">Active</Badge>
+        <Badge tone="success" dot>
+          Active
+        </Badge>
       </div>
       <CardDescription>Create, publish, analyze</CardDescription>
+    </Card>
+  ),
+};
+
+export const GlassCard: Story = {
+  render: () => (
+    <Card variant="glass" className="w-80">
+      <CardTitle>Glassmorphism Surface</CardTitle>
+      <CardDescription>Backdrop blur with subtle border sheen</CardDescription>
+    </Card>
+  ),
+};
+
+export const InteractiveCard: Story = {
+  render: () => (
+    <Card variant="interactive" className="w-80">
+      <div className="flex items-center justify-between">
+        <CardTitle>AI Content Studio</CardTitle>
+        <Badge tone="brand">Feature</Badge>
+      </div>
+      <CardDescription>Hover over me to see glow & elevation</CardDescription>
     </Card>
   ),
 };

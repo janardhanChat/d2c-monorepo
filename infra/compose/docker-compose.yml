@@ -63,12 +63,6 @@ services:
       CORE_API_URL: http://core-api:4000
       INTEGRATIONS_API_URL: http://integrations-api:4010
 
-  ai-service:
-    build: ../../platform/services/ai-service
-    restart: unless-stopped
-    env_file: ../../.env
-    networks: [ap-net]
-
   redis:
     image: redis:7.4-alpine
     command: ["redis-server", "--appendonly", "yes"]

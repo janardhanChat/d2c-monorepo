@@ -3,7 +3,6 @@ packages:
   - "packages/*"
   - "platform/frontend"
   - "platform/services/*"
-  - "!platform/services/ai-service" # Python service: managed by uv, wired into Nx via project.json
   - "products/*/frontend"
   - "products/*/api"
   - "products/*/domain"
