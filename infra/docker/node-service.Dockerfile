@@ -7,7 +7,7 @@
 # tsup bundles the service and all its dependencies into dist/main.js,
 # so the runtime image contains only that bundle (no node_modules).
 
-FROM node:22-alpine AS build
+FROM node:26-alpine AS build
 ENV PNPM_HOME=/pnpm PATH=/pnpm:$PATH NX_DAEMON=false NX_NO_CLOUD=true CI=true
 RUN corepack enable
 WORKDIR /repo
@@ -17,7 +17,7 @@ RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 RUN pnpm exec nx run ${PACKAGE}:build --skip-nx-cache
 RUN mkdir /out && cp -r "$(pnpm --filter ${PACKAGE} exec pwd)/dist" /out/dist
 
-FROM node:22-alpine AS runtime
+FROM node:26-alpine AS runtime
 ENV NODE_ENV=production
 WORKDIR /app
 COPY --from=build --chown=node:node /out/dist ./dist
