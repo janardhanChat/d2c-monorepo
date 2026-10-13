@@ -34,7 +34,7 @@ jobs:
       - run: uv sync --directory platform/services/ai-service
 
       # Sets NX_BASE / NX_HEAD so `affected` compares against the last green main
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
 
       - name: Format
         run: pnpm format:check
@@ -91,7 +91,7 @@ jobs:
           node-version-file: .nvmrc
           cache: pnpm
       - run: pnpm install --frozen-lockfile
-      - uses: nrwl/nx-set-shas@v4
+      - uses: nrwl/nx-set-shas@v5
       - id: affected
         run: |
           if pnpm exec nx show projects --affected | grep -qx "${{ matrix.project }}"; then
