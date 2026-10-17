@@ -53,7 +53,7 @@ packages/
   service-kit                 one-call Fastify bootstrap (logging, security, zod, OpenAPI, health)
   product-kit                 product manifest contract
   config                      shared tsconfig presets
-infra/                        compose, gateway (Traefik), Supabase + Postiz setup, Dockerfiles
+infra/                        compose, Supabase + Postiz setup, Dockerfiles
 tools/scripts                 generators (new product)
 ```
 

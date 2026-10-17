@@ -75,7 +75,7 @@ const plans = [
     popular: false,
     features: [
       "Self-hosted Supabase cluster support",
-      "Custom Traefik reverse proxy routing",
+      "Custom microservice & multi-tenant routing",
       "Custom third-party connectors",
       "99.95% SLA & dedicated account manager",
       "Audit logging & compliance exports",

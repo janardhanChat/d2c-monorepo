@@ -22,7 +22,7 @@ The **D2C Business OS** is a multi-tenant operating system designed for direct-t
 | **Pluggable Products (`commerce`, `crm`, `fulfillment`)** |  **Scaffolded**  | Product manifests registered with status `"coming-soon"`, initial domain models, and migration skeletons in place. Ready for feature expansion.                                                                                                              |
 | **Connectors (`connectors/postiz`)**                      |   **Complete**   | Fully typed client for Postiz Public API (auth, channels, publishing, analytics) with retry logic and isolation.                                                                                                                                             |
 | **Web Shell (`apps/web`)**                                | **Operational**  | Next.js 16 App Router dashboard shell, high-converting landing page with interactive simulator, dynamic sidebar loading from product manifests, auth gating, and multi-tenant routing (`/[orgSlug]/[brandSlug]`).                                            |
-| **Infrastructure & Gateway**                              |  **Configured**  | Traefik v3.5 reverse proxy configuration (`dynamic.yml`), Docker compose orchestrator, Dockerfiles for Node services and Next.js, upstream setup scripts for Supabase and Postiz.                                                                            |
+| **Infrastructure**                                        |  **Configured**  | Docker compose orchestrator, Dockerfiles for Node services and Next.js, upstream setup scripts for Supabase and Postiz.                                                                                                                                      |
 
 ---
 
@@ -31,7 +31,6 @@ The **D2C Business OS** is a multi-tenant operating system designed for direct-t
 ```mermaid
 flowchart TD
     Browser["Next.js Web Shell (apps/web)<br/>Port 3000"]
-    Gateway["Traefik Reverse Proxy (infra/gateway)<br/>Port 8080"]
 
     subgraph PlatformServices ["Platform Services"]
         CoreAPI["core-api<br/>Port 4000"]
@@ -50,12 +49,10 @@ flowchart TD
         Redis["Redis Cache / Queue"]
     end
 
-    Browser -->|Public HTTP & JWT| Gateway
-    Gateway -->|/api/core| CoreAPI
-    Gateway -->|/api/integrations| IntegAPI
-    Gateway -->|/api/social| SocialAPI
-    Gateway -->|/api/ai| AIService
-    Gateway -.->|Blocks /internal/*| Gateway
+    Browser -->|Public HTTP & JWT| CoreAPI
+    Browser -->|Public HTTP & JWT| IntegAPI
+    Browser -->|Public HTTP & JWT| SocialAPI
+    Browser -->|Public HTTP & JWT| AIService
 
     SocialAPI -->|/internal/v1/publish| IntegAPI
     SocialAPI -->|core.is_member()| Postgres
@@ -117,12 +114,10 @@ d2c-automation-platform/automation-platform/
 │
 ├── infra/                                    # Deployment, containerization, and networking
 │   ├── compose/
-│   │   └── docker-compose.yml                # Main Docker Compose stack (gateway, services, redis)
+│   │   └── docker-compose.yml                # Main Docker Compose stack (services, redis)
 │   ├── docker/
 │   │   ├── node-service.Dockerfile           # Optimized multi-stage Dockerfile for Fastify services
 │   │   └── web.Dockerfile                    # Standalone Next.js Dockerfile
-│   ├── gateway/
-│   │   └── dynamic.yml                       # Traefik routing rules (strips prefixes, blocks /internal/*)
 │   ├── postiz/                               # Upstream Postiz deployment scripts and compose overrides
 │   └── supabase/                             # Self-hosted Supabase bootstrap scripts
 │
@@ -220,7 +215,7 @@ d2c-automation-platform/automation-platform/
 1. **Hierarchical Scoping:** Every business entity belongs to an `organization_id` and, where applicable, a `brand_id`.
 2. **Row-Level Security (RLS):** Tables enable Postgres RLS using the security-definer helper `core.is_member(organization_id)`.
 3. **Zero Direct DB Cross-Talk:** Microservices only read and write their own PostgreSQL schema (`core`, `social`, etc.). Any cross-service verification (such as validating user roles) occurs via the internal service route `/internal/v1/memberships/resolve` using a shared `x-internal-token`.
-4. **Gateway Isolation:** Traefik rejects any external requests matching `/internal/*`, guaranteeing service-to-service endpoints are never reachable from the public web.
+4. **Internal Route Protection:** Service-to-service endpoints under `/internal/*` require a valid `x-internal-token`, guaranteeing they are never exposed to unauthorized callers.
 
 ### 4.2 Module Boundaries & Strict Layering
 

@@ -6,15 +6,13 @@
 apps/web (shell)                 one dashboard; mounts product frontends via manifests
    │  HTTPS + Bearer (Supabase session) + x-organization-id / x-brand-id
    ▼
-Traefik gateway  /api/core  /api/integrations  /api/social  /api/ai   (/internal/* never routed)
-   │
-   ├── platform services   core-api · integrations-api · ai-service
-   └── product services    social-api · (commerce-api · crm-api · fulfillment-api)
-            │                       │
-            │  /internal/* + x-internal-token (service-to-service)
-            ▼
-     Postgres (Supabase)   one schema per owner: core, social, commerce, ...
-     Postiz (internal)     reached only through integrations-api
+platform services   core-api (:4000) · integrations-api (:4010) · ai-service (:8000)
+product services    social-api (:4100) · (commerce-api · crm-api · fulfillment-api)
+         │                       │
+         │  /internal/* + x-internal-token (service-to-service)
+         ▼
+  Postgres (Supabase)   one schema per owner: core, social, commerce, ...
+  Postiz (internal)     reached only through integrations-api
 ```
 
 ## Tenancy

@@ -23,7 +23,7 @@ export interface ProductManifest {
   name: string;
   description: string;
   status: "active" | "beta" | "coming-soon";
-  /** Base path in the dashboard and API gateway */
+  /** Base path in the dashboard and API */
   routes: { web: string; api: string };
   plans: PlanId[];
   nav: NavItem[];

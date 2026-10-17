@@ -21,6 +21,26 @@ const nextConfig: NextConfig = {
     "@ap/fulfillment-frontend",
   ],
   poweredByHeader: false,
+  async rewrites() {
+    return [
+      {
+        source: "/api/core/:path*",
+        destination: `${process.env.CORE_API_URL || "http://localhost:4000"}/:path*`,
+      },
+      {
+        source: "/api/integrations/:path*",
+        destination: `${process.env.INTEGRATIONS_API_URL || "http://localhost:4010"}/:path*`,
+      },
+      {
+        source: "/api/social/:path*",
+        destination: `${process.env.SOCIAL_API_URL || "http://localhost:4100"}/:path*`,
+      },
+      {
+        source: "/api/ai/:path*",
+        destination: `${process.env.AI_API_URL || "http://localhost:8000"}/:path*`,
+      },
+    ];
+  },
 };
 
 export default nextConfig;

@@ -15,24 +15,12 @@ x-node-service: &node-service
   networks: [ap-net]
 
 services:
-  gateway:
-    image: traefik:v3.5
-    command:
-      - --providers.file.filename=/etc/traefik/dynamic.yml
-      - --entrypoints.web.address=:8080
-      - --ping=true
-    ports: ["8080:8080"]
-    volumes:
-      - ../gateway/dynamic.yml:/etc/traefik/dynamic.yml:ro
-    networks: [ap-net]
-
   web:
     build:
       context: ../..
       dockerfile: infra/docker/web.Dockerfile
-      args:
-        NEXT_PUBLIC_API_URL: http://localhost:8080/api
     restart: unless-stopped
+    ports: ["3000:3000"]
     env_file: ../../.env
     networks: [ap-net]
 
@@ -42,6 +30,7 @@ services:
       context: ../..
       dockerfile: infra/docker/node-service.Dockerfile
       args: { PACKAGE: "@ap/core-api" }
+    ports: ["4000:4000"]
     environment: { PORT: 4000 }
 
   integrations-api:
@@ -50,6 +39,7 @@ services:
       context: ../..
       dockerfile: infra/docker/node-service.Dockerfile
       args: { PACKAGE: "@ap/integrations-api" }
+    ports: ["4010:4010"]
     environment: { PORT: 4010, CORE_API_URL: http://core-api:4000 }
 
   social-api:
@@ -58,6 +48,7 @@ services:
       context: ../..
       dockerfile: infra/docker/node-service.Dockerfile
       args: { PACKAGE: "@ap/social-api" }
+    ports: ["4100:4100"]
     environment:
       PORT: 4100
       CORE_API_URL: http://core-api:4000

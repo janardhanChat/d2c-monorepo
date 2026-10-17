@@ -4,7 +4,7 @@ import { z } from "zod";
 
 import type { OrganizationsRepo } from "../organizations";
 
-/** Service-to-service endpoints. Not exposed through the public gateway. */
+/** Service-to-service endpoints. Protected by internal token authentication. */
 export function registerInternalRoutes(
   app: Service,
   deps: { repo: OrganizationsRepo; internalToken: string | undefined },

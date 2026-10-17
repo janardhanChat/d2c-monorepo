@@ -109,7 +109,14 @@ export function LandingFooter() {
                 </a>
               </li>
               <li>
-                <span className="text-subtle">Traefik Reverse Proxy (:8080)</span>
+                <a
+                  href="http://localhost:4100/docs"
+                  target="_blank"
+                  rel="noreferrer"
+                  className="hover:text-fg transition-colors"
+                >
+                  social-api Docs
+                </a>
               </li>
             </ul>
           </div>
