@@ -1,23 +1,12 @@
-import { Button, Card, CardDescription, CardTitle } from "@ap/ui";
+import type { Metadata } from "next";
 
-export const metadata = { title: "Sign in" };
+import { LoginView } from "@/components/auth/login-view";
 
-// TODO: wire to Supabase Auth (GoTrue) via src/lib/supabase/browser.ts
+export const metadata: Metadata = {
+  title: "Login · Ads Manager",
+  description: "Sign in with your mobile number to manage your autonomous Meta Ads.",
+};
+
 export default function LoginPage() {
-  return (
-    <main className="grid min-h-screen place-items-center p-6">
-      <Card className="w-full max-w-sm space-y-4">
-        <div>
-          <CardTitle>Sign in</CardTitle>
-          <CardDescription>Use your work email to continue</CardDescription>
-        </div>
-        <input
-          type="email"
-          placeholder="you@brand.in"
-          className="border-border bg-surface-2 w-full rounded-lg border px-3 py-2 text-sm"
-        />
-        <Button className="w-full">Send magic link</Button>
-      </Card>
-    </main>
-  );
+  return <LoginView />;
 }

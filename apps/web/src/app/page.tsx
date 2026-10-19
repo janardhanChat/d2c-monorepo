@@ -72,9 +72,9 @@ export default function Home() {
                   </svg>
                 </Button>
               </Link>
-              <Link href="/onboarding">
+              <Link href="/login">
                 <Button variant="outline" size="lg" className="w-full px-8 sm:w-auto">
-                  Set Up Free Workspace
+                  Sign In with Mobile
                 </Button>
               </Link>
             </div>

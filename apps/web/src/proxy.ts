@@ -6,11 +6,11 @@ import { NextResponse, type NextRequest } from "next/server";
  *
  * TODO: refresh the Supabase session here with createServerClient (see @supabase/ssr docs).
  */
-const PUBLIC = ["/login", "/onboarding", "/_next", "/favicon.ico"];
+const PUBLIC = ["/login", "/_next", "/favicon.ico", "/api"];
 
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
-  if (PUBLIC.some((p) => pathname.startsWith(p))) return NextResponse.next();
+  if (pathname === "/" || PUBLIC.some((p) => pathname.startsWith(p))) return NextResponse.next();
 
   const authRequired = process.env.AUTH_REQUIRED === "true";
   const hasSession = req.cookies

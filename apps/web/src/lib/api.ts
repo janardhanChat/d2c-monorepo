@@ -42,6 +42,8 @@ export function resolveServiceUrl(path: string): string {
   return `${base}${path}`;
 }
 
+export * from "./http";
+
 export async function apiFetch<T>(
   path: string,
   opts: { token: string; tenant?: TenantIds; init?: RequestInit },
