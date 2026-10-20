@@ -19,10 +19,10 @@
   "devDependencies": {
     "@ap/config": "workspace:*",
     "@types/react": "^19.0.0",
-    "react": "^19.0.0"
+    "react": "^19.3.1"
   },
   "peerDependencies": {
-    "react": "^19.0.0"
+    "react": "^19.3.1"
   },
   "nx": {
     "tags": [
